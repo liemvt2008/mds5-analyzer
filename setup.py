@@ -9,10 +9,14 @@ setup(
     author_email='datafarmer2019@gmail.com',
     packages=find_packages('analyzer'),
     package_dir={'': 'analyzer'},
-    url='https://github.com/gmyrianthous/example-publish-pypi',
-    keywords='example project',
+    url='https://github.com/liemvt2008/mds5-analyzer',
+    keywords='mds5-analyzer',
     install_requires=[
-          'scikit-learn',
+            'matplotlib',
+            'pandas',
+            'seaborn',
+            'scipy',
+            'statsmodels'
       ],
 
 )
