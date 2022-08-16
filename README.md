@@ -1,7 +1,7 @@
 # TTTH Analyzer
 ## _Mô tả thư viện_
 
-[![logo](/assets/images/logo.jpeg)](https://csc.edu.vn/data-science-machine-learning)
+[![logo](https://github.com/liemvt2008/mds5-analyzer/blob/master/assets/images/logo.jpeg)](https://csc.edu.vn/data-science-machine-learning)
 
 TTTH_Analyzer là gói thư viện hỗ trợ HV môn MDS5 thực hiện các bước phân tích đơn biến và đa biến 
 
@@ -45,7 +45,7 @@ variable_name: tên biến phân loại cần phân tích - kiểu  chuỗi (str
 df: dataframe chứa biến phân loại cần phân tích  - kiểu dataframe pandas 
 Kết quả: 
 ```
-![result](/assets/images/ket_qua_pt_category.png)
+![result](https://github.com/liemvt2008/mds5-analyzer/blob/master/assets/images/ket_qua_pt_category.png)
 - Phân tích đơn biến liên tục
 ```
 _analyzer.analyze_numeric_variable(variable_name='Age', df=df_titanic_input_continuous)
@@ -54,7 +54,7 @@ variable_name: tên biến liên tục cần phân tích - kiểu  chuỗi (stri
 df: dataframe chứa biến liên tục cần phân tích  - kiểu dataframe pandas  
 Kết quả: 
 ```
-![result](/assets/images/ket_qua_pt_numeric.png)
+![result](https://github.com/liemvt2008/mds5-analyzer/blob/master/assets/images/ket_qua_pt_numeric.png)
 - Phân tích đa biến phân loại vs phân loại
 ```
 _analyzer.analyze_category_vs_category(var1=var1, var2=var2, df=df_titanic_input_category)
@@ -64,7 +64,7 @@ var2: tên biến phân loại 2 cần phân tích - kiểu  chuỗi (string)
 df: dataframe chứa cả 2 biến phân loại cần phân tích  - kiểu dataframe pandas  
 Kết quả: 
 ```
-![result](/assets/images/ket_qua_pt_cate_vs_cate.png)
+![result](https://github.com/liemvt2008/mds5-analyzer/blob/master/assets/images/ket_qua_pt_cate_vs_cate.png)
 
 - Phân tích đa biến liên tục vs phân loại 
 ```
@@ -76,7 +76,7 @@ category_vars: danh sách hoặc tên biến phân loại cần phân tích - ki
 df: dataframe chứa biến phân loại và biến liên tục cần phân tích  - kiểu dataframe pandas  
 Kết quả: 
 ```
-![result](/assets/images/ket_qua_pt_numeric_vs_cates.png)
+![result](https://github.com/liemvt2008/mds5-analyzer/blob/master/assets/images/ket_qua_pt_numeric_vs_cates.png)
 ## License
 
 MIT
