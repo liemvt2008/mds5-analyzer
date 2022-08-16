@@ -6,7 +6,7 @@ import statsmodels.api as sm
 from statsmodels.formula.api import ols
 
 
-class Analyzer:
+class TTTH_Analyzer:
 
     def __init__(self):
         pass

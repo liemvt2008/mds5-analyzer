@@ -1,1 +1,0 @@
-This is a package help to analyze univariable and bivariable in class MDS5
