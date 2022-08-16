@@ -45,7 +45,7 @@ variable_name: tên biến phân loại cần phân tích - kiểu  chuỗi (str
 df: dataframe chứa biến phân loại cần phân tích  - kiểu dataframe pandas 
 Kết quả: 
 ```
-![result](https://github.com/liemvt2008/mds5-analyzer/blob/master/analyzer/.image_result/ket_qua_pt_category.png)
+![result](https://github.com/liemvt2008/mds5-analyzer/blob/master/analyzer/assets/images/ket_qua_pt_category.png)
 - Phân tích đơn biến liên tục
 - Phân tích đa biến phân loại vs phân loại
 - Phân tích đa biến liên tục vs phân loại 
