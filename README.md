@@ -1,7 +1,7 @@
 # TTTH Analyzer
 ## _Mô tả thư viện_
 
-[![N|Solid](https://github.com/liemvt2008/mds5-analyzer/tree/master/analyzer/.images/logo.jpeg)](https://csc.edu.vn/data-science-machine-learning)
+[![logo](https://github.com/liemvt2008/mds5-analyzer/tree/master/analyzer/.images/logo.jpeg)](https://csc.edu.vn/data-science-machine-learning)
 
 TTTH_Analyzer là gói thư viện hỗ trợ HV môn MDS5 thực hiện các bước phân tích đơn biến và đa biến 
 
@@ -45,7 +45,7 @@ variable_name: tên biến phân loại cần phân tích - kiểu  chuỗi (str
 df: dataframe chứa biến phân loại cần phân tích  - kiểu dataframe pandas 
 Kết quả: 
 ```
-![result](https://github.com/liemvt2008/mds5-analyzer/tree/master/analyzer/.images/ket_qua_pt_category.png)
+![result](/images/ket_qua_pt_category.png)
 - Phân tích đơn biến liên tục
 ```
 _analyzer.analyze_numeric_variable(variable_name='Age', df=df_titanic_input_continuous)
