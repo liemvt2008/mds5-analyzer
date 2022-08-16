@@ -1,7 +1,7 @@
 # TTTH Analyzer
 ## _Mô tả thư viện_
 
-[![logo](http://csc.edu.vn/logo.jpg)](https://csc.edu.vn/data-science-machine-learning)
+[![N|Solid](http://csc.edu.vn/logo.jpg)](https://csc.edu.vn/data-science-machine-learning)
 
 TTTH_Analyzer là gói thư viện hỗ trợ HV môn MDS5 thực hiện các bước phân tích đơn biến và đa biến 
 
@@ -45,11 +45,38 @@ variable_name: tên biến phân loại cần phân tích - kiểu  chuỗi (str
 df: dataframe chứa biến phân loại cần phân tích  - kiểu dataframe pandas 
 Kết quả: 
 ```
-![result](https://github.com/liemvt2008/mds5-analyzer/blob/master/analyzer/assets/images/ket_qua_pt_category.png)
+![result](https://github.com/liemvt2008/mds5-analyzer/tree/master/analyzer/assets/images/ket_qua_pt_category.png)
 - Phân tích đơn biến liên tục
+```
+_analyzer.analyze_numeric_variable(variable_name='Age', df=df_titanic_input_continuous)
+Trong đó:
+variable_name: tên biến liên tục cần phân tích - kiểu  chuỗi (string)
+df: dataframe chứa biến liên tục cần phân tích  - kiểu dataframe pandas  
+Kết quả: 
+```
+![result](https://github.com/liemvt2008/mds5-analyzer/tree/master/analyzer/assets/images/ket_qua_pt_numeric.png)
 - Phân tích đa biến phân loại vs phân loại
-- Phân tích đa biến liên tục vs phân loại 
+```
+_analyzer.analyze_category_vs_category(var1=var1, var2=var2, df=df_titanic_input_category)
+Trong đó:
+var1: tên biến phân loại 1 cần phân tích - kiểu  chuỗi (string)
+var2: tên biến phân loại 2 cần phân tích - kiểu  chuỗi (string)
+df: dataframe chứa cả 2 biến phân loại cần phân tích  - kiểu dataframe pandas  
+Kết quả: 
+```
+![result](https://github.com/liemvt2008/mds5-analyzer/tree/master/analyzer/assets/images/ket_qua_pt_cate_vs_cate.png)
 
+- Phân tích đa biến liên tục vs phân loại 
+```
+_analyzer.analyze_continous_vs_categories(continous_var='Age', category_vars=['Sex', 'Pclass'], 
+                                          df=df_titanic_input)
+Trong đó:
+continous_var: tên biến liên tục cần phân tích - kiểu  chuỗi (string)
+category_vars: danh sách hoặc tên biến phân loại cần phân tích - kiểu danh sách (list)  hoặc kiểu  chuỗi (string)
+df: dataframe chứa biến phân loại và biến liên tục cần phân tích  - kiểu dataframe pandas  
+Kết quả: 
+```
+![result](https://github.com/liemvt2008/mds5-analyzer/tree/master/analyzer/assets/images/ket_qua_pt_numeric_vs_cates.png)
 ## License
 
 MIT
