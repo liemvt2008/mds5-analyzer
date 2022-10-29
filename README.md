@@ -89,7 +89,7 @@ Kết quả:
 ```
 ![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/check_imbalance.png)
 
-- Phân tích ngoại lai của biêsn liên tục
+- Phân tích ngoại lai của biến liên tục
 ```
 _analyzer.check_outlier_of_numerical_variable(numerical_variable='Tên biến liên tục',  
                                               df='Tên DataFrame')
