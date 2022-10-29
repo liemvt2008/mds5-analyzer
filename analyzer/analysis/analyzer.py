@@ -1,5 +1,5 @@
 import warnings
-from logging import getLogger
+import logging
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -9,12 +9,13 @@ from scipy.stats import chi2_contingency
 from statsmodels.formula.api import ols
 
 warnings.filterwarnings('ignore')
+logging.basicConfig()
 
 
 class TTTH_Analyzer:
 
     def __init__(self):
-        self.logger = getLogger(__class__.__name__)
+        self.logger = logging.getLogger(__class__.__name__)
 
     def analyze_category_variable(self, variable_name, df):
         """
