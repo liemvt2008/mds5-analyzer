@@ -209,6 +209,12 @@ class TTTH_Analyzer:
         return class_count
 
     def check_imbalance_class(self, variable_name, df):
+        """
+        Check ratio of each class
+        :param variable_name: Variable name
+        :param df: DataFrame contains category
+        :return:
+        """
         class_count = self._count_values_of_variable(variable_name, df, normalize=True)
         print(f'Class count of {variable_name}:\n')
         print('==========')
@@ -216,9 +222,9 @@ class TTTH_Analyzer:
         print('==========')
         max_class = class_count.max()
         min_class = class_count.min()
-        ratio_of_classes = max_class/min_class
-        print(f'Ratio of 2 class is {ratio_of_classes}')
-        if ratio_of_classes >=2:
+        ratio_of_classes = max_class / min_class
+        print(f'Ratio of 2 class is {round(ratio_of_classes, 2)}')
+        if ratio_of_classes >= 2:
             print(f'You should consider to handle imbalance')
 
     def check_outlier_of_numerical_variable(self, numerical_variable, df):
@@ -236,12 +242,12 @@ class TTTH_Analyzer:
         limit_low = q1 - 1.5 * iqr
         index_up = df[df[numerical_variable] > limit_up].index
         index_low = df[df[numerical_variable] < limit_low].index
-        upper_outlier_ratio = index_up.shape[0]/total_sample
-        lower_outlier_ratio = index_low.shape[0]/total_sample
+        upper_outlier_ratio = index_up.shape[0] / total_sample
+        lower_outlier_ratio = index_low.shape[0] / total_sample
         if index_up.empty and index_low.empty:
             print(f'Variable {numerical_variable} have no outlier')
             return
         else:
-            print(f'variable {numerical_variable} have {round(upper_outlier_ratio)}% upper outlier')
-            print(f'variable {numerical_variable} have {round(lower_outlier_ratio)}% lower outlier')
+            print(f'variable {numerical_variable} have {round(upper_outlier_ratio * 100, 3)}% upper outlier')
+            print(f'variable {numerical_variable} have {round(lower_outlier_ratio * 100, 3)}% lower outlier')
             return index_up, index_low
