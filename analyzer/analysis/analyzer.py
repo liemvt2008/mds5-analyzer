@@ -1,5 +1,4 @@
 import warnings
-import logging
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -9,13 +8,12 @@ from scipy.stats import chi2_contingency
 from statsmodels.formula.api import ols
 
 warnings.filterwarnings('ignore')
-logging.basicConfig()
 
 
 class TTTH_Analyzer:
 
     def __init__(self):
-        self.logger = logging.getLogger(__class__.__name__)
+        pass
 
     def analyze_category_variable(self, variable_name, df):
         """
@@ -24,10 +22,10 @@ class TTTH_Analyzer:
         parameter df: DataFrame include categorical column
         """
         class_count = self._count_values_of_variable(variable_name, df)
-        self.logger.info(f'Class count of {variable_name}:\n')
-        self.logger.info('==========')
-        self.logger.info(f'{class_count}')
-        self.logger.info('==========')
+        print(f'Class count of {variable_name}:\n')
+        print('==========')
+        print(f'{class_count}')
+        print('==========')
         plt.figure(figsize=(8, 6))
         plt.subplot(1, 1, 1)
         class_count.head(7).plot.bar()
@@ -47,7 +45,7 @@ class TTTH_Analyzer:
         _max = df[variable_name].max()
         _range = _max - _min
         result = {'mean': _mean, 'median': _median, 'mode': _mode[0], 'min': _min, 'max': _max, 'range': _range}
-        self.logger.info(f'central tendency of {variable_name}: {result}')
+        print(f'central tendency of {variable_name}: {result}')
 
     def show_dispersion(self, variable_name, df):
         """
@@ -65,7 +63,7 @@ class TTTH_Analyzer:
         skew = df[variable_name].skew()
         kurtosis = df[variable_name].kurtosis()
         result = {'range': _range, 'q1': q1, 'q3': q3, 'iqr': iqr, 'var': var, 'skew': skew, 'kurtosis': kurtosis}
-        self.logger.info(f'Dispersion of {variable_name}: \n {result}')
+        print(f'Dispersion of {variable_name}: \n {result}')
 
     def visualize_hist_box_plot(self, variable_name, df):
         """
@@ -90,11 +88,11 @@ class TTTH_Analyzer:
         parameter: variable_name: name of continuous variable
         parameter df: DataFrame include continuous column
         """
-        self.logger.info('=====')
+        print('=====')
         self.show_central_tendency(variable_name, df)
-        self.logger.info('=====')
+        print('=====')
         self.show_dispersion(variable_name, df)
-        self.logger.info('=====')
+        print('=====')
         self.visualize_hist_box_plot(variable_name, df)
 
     @staticmethod
@@ -145,7 +143,7 @@ class TTTH_Analyzer:
         parameter df: DataFrame include 2 category variables input
         """
         tw_table = self.create_tw_table(var1, var2, df)
-        self.logger.info(f'=====Analyze of {var1} and {var2}=====')
+        print(f'=====Analyze of {var1} and {var2}=====')
         tw_table.plot(kind='bar', stacked=True, legend=False)
         chi2_result = self.use_chi_2_evaluation(tw_table, prob)
         plt.title(chi2_result)
@@ -184,7 +182,7 @@ class TTTH_Analyzer:
             raise ValueError('Only support for 2 categories variable analysis')
         model = ols(function, data=df).fit()
         anova_table = sm.stats.anova_lm(model, typ=2)
-        self.logger.info(anova_table)
+        print(anova_table)
 
     def analyze_continous_vs_categories(self, continous_var, category_vars, df):
         """
@@ -194,7 +192,7 @@ class TTTH_Analyzer:
         parameter df: DataFrame contains continuous and category variables input
         """
         self.analyze_anova_table_for_continous_vs_categories(continous_var, category_vars, df)
-        self.logger.info('======')
+        print('======')
         self.visualize_box_for_continous_vs_categories(continous_var, category_vars, df)
 
     @staticmethod
@@ -212,16 +210,16 @@ class TTTH_Analyzer:
 
     def check_imbalance_class(self, variable_name, df):
         class_count = self._count_values_of_variable(variable_name, df, normalize=True)
-        self.logger.info(f'Class count of {variable_name}:\n')
-        self.logger.info('==========')
-        self.logger.info(f'{class_count}')
-        self.logger.info('==========')
+        print(f'Class count of {variable_name}:\n')
+        print('==========')
+        print(f'{class_count}')
+        print('==========')
         max_class = class_count.max()
         min_class = class_count.min()
         ratio_of_classes = max_class/min_class
-        self.logger.info(f'Ratio of 2 class is {ratio_of_classes}')
+        print(f'Ratio of 2 class is {ratio_of_classes}')
         if ratio_of_classes >=2:
-            self.logger.info(f'You should consider to handle imbalance')
+            print(f'You should consider to handle imbalance')
 
     def check_outlier_of_numerical_variable(self, numerical_variable, df):
         """
@@ -241,9 +239,9 @@ class TTTH_Analyzer:
         upper_outlier_ratio = index_up.shape[0]/total_sample
         lower_outlier_ratio = index_low.shape[0]/total_sample
         if index_up.empty and index_low.empty:
-            self.logger.info(f'Variable {numerical_variable} have no outlier')
+            print(f'Variable {numerical_variable} have no outlier')
             return
         else:
-            self.logger.info(f'variable {numerical_variable} have {round(upper_outlier_ratio)}% upper outlier')
-            self.logger.info(f'variable {numerical_variable} have {round(lower_outlier_ratio)}% lower outlier')
+            print(f'variable {numerical_variable} have {round(upper_outlier_ratio)}% upper outlier')
+            print(f'variable {numerical_variable} have {round(lower_outlier_ratio)}% lower outlier')
             return index_up, index_low
