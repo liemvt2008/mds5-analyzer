@@ -78,6 +78,28 @@ df: dataframe chứa biến phân loại và biến liên tục cần phân tíc
 Kết quả: 
 ```
 ![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/ket_qua_pt_numeric_vs_cates.png)
+
+- Phân tích mất cân bằng
+```
+_analyzer.check_imbalance_class(variable_name='Tên biến phân loại', df='Tên DataFrame')
+Trong đó:
+variable_name: tên biến phân loại cần phân tích - kiểu  chuỗi (string)
+df: dataframe chứa biến liên tục cần phân tích  - kiểu dataframe pandas  
+Kết quả: 
+```
+![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/check_imbalance.png)
+
+- Phân tích ngoại lai của biêsn liên tục
+```
+_analyzer.check_outlier_of_numerical_variable(numerical_variable='Tên biến liên tục',  
+                                              df='Tên DataFrame')
+
+Trong đó:
+numerical_variable: tên biến liên tục cần phân tích - kiểu  chuỗi (string)
+df: dataframe chứa biến phân loại và biến liên tục cần phân tích  - kiểu dataframe pandas  
+Kết quả: 
+```
+![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/check_outlier.png)
 ## License
 
 MIT
