@@ -100,6 +100,50 @@ df: dataframe chứa biến phân loại và biến liên tục cần phân tíc
 Kết quả: 
 ```
 ![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/check_outlier.png)
+
+## Cách sử dụng thư viện FeatureProcessor
+- Khởi tạo thư viện FeatureProcessor
+```sh
+from processor.feature import FeatureProcessor
+_processor = FeatureProcessor()
+```
+
+- Điền missing values của biến phân loại bằng giá trị mode 
+```
+_processor.handle_missing_values_by_mode(variable_name='tên biến category', df='Tên DataFrame')
+
+Trong đó:
+variable_name: tên biến phân loại cần xử lý - kiểu  chuỗi (string)
+df: dataframe chứa biến phân loại cần xử lý  - kiểu dataframe pandas  
+Kết quả: 
+```
+![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/ket_qua_fill_missing_values_by_mode.png)
+
+- Điền missing values của biến liên tục bằng giá trị median
+```
+_processor.handle_missing_values_by_median(variable_name='tên biến category', df='Tên DataFrame')
+
+Trong đó:
+variable_name: tên biến liên tục cần xử lý - kiểu  chuỗi (string)
+df: dataframe chứa biến liên tục cần xử lý  - kiểu dataframe pandas  
+Kết quả: 
+```
+![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/ket_qua_fill_missing_values_by_median.png)
+
+- Nhóm các phân nhóm không phổ biến thành 1 nhãn
+```
+_processor.handle_uncommon_category(variable_name='tên biến category', df='Tên DataFrame', 
+                                    threshold='ngưỡng xác định giá trị không phổ biến', 
+                                    label='nhãn thay thế các giá trị không phổ biến')
+
+Trong đó:
+variable_name: tên biến phân loại cần xử lý - kiểu  chuỗi (string)
+df: dataframe chứa biến phân loại cần xử lý  - kiểu dataframe pandas  
+threshold: ngưỡng xác định giá trị không phổ biến. Mặc định: 10
+label: nhãn thay thế các giá trị không phổ biến. Mặc định: Rare 
+Kết quả: 
+```
+![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/ket_qua_handle_uncommon_category.png)
 ## License
 
 MIT
