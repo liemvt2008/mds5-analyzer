@@ -24,6 +24,10 @@ TTTH_Analyzer là gói thư viện hỗ trợ HV môn MDS5 thực hiện các b�
 - Phân tích đa biến liên tục vs phân loại thông qua:
     * Xây dựng bảng ANOVA và phân tích thống kê 
     * Trực quan hóa bằng box plot
+- Xử lý missing values và các phân nhóm không phổ biến:
+  * Điền missing values bằng mode với biến phân loại
+  * Điền mising values bằng median với biến liên tục 
+  * Thay thế các phân nhóm không phổ biến bằng nhãn mới
 
 ## Installation
 
