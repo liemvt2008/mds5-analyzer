@@ -3,13 +3,21 @@
 
 [![logo](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/logo.jpeg)](https://csc.edu.vn/data-science-machine-learning)
 
-TTTH_Analyzer là gói thư viện hỗ trợ HV môn MDS5 thực hiện các bước phân tích đơn biến và đa biến 
+TTTH_Analyzer là gói thư viện hỗ trợ HV môn MDS5 thực hiện các bước phân tích đơn biến và đa biến và kiếm tra 1 số tình trạng của các biến
 
 - Phân tích đơn biến (phân loại và liên tục )
 - Phân tích đa biến (phân loại vs phân loại, phân loại vs liên tục )
+- Phân tích tình trạng outlier của các biến phân loại 
+- Phân tích tình trạng mất cân bằng của biến phân loại output 
+
+FeatureProcessor là gói thư viện hỗ trợ HV môn MDS5 thực hiện các bước xử lý những vấn đề liên quan đến dữ liệu
+
+- Giải quyết tình trạng missing values cho biến phân loại và liên tục
+- Giải quyết tình trạng uncommon category cho biến phân loại 
 
 ## Tính năng cung cấp:
 
+### Đối với thư viện TTTH_Analyzer
 - Phân tích đơn biến  với biến phân loại  thông qua : 
     * Count values  
     * Barchart
@@ -24,6 +32,10 @@ TTTH_Analyzer là gói thư viện hỗ trợ HV môn MDS5 thực hiện các b�
 - Phân tích đa biến liên tục vs phân loại thông qua:
     * Xây dựng bảng ANOVA và phân tích thống kê 
     * Trực quan hóa bằng box plot
+- Phân tích outlier của biến liên tục
+- Phân tích hiện tượng mất cân bằng dữ liệu ở biến phân loại output 
+
+### Đối với thư viện TTTH_Analyzer
 - Xử lý missing values và các phân nhóm không phổ biến:
   * Điền missing values bằng mode với biến phân loại
   * Điền mising values bằng median với biến liên tục 
@@ -148,6 +160,7 @@ label: nhãn thay thế các giá trị không phổ biến. Mặc định: Rare
 Kết quả: 
 ```
 ![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/ket_qua_handle_uncommon_category.png)
+
 ## License
 
 MIT
