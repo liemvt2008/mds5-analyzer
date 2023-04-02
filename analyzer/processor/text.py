@@ -5,11 +5,11 @@ from underthesea import word_tokenize, pos_tag, sent_tokenize
 
 
 class TextProcessor:
-    EMOJI_FILE_PATH = './meta_data/emojicon.txt'
-    TEENCODE_FILE_PATH = './meta_data/teencode.txt'
-    TYPO_WORD_FILE_PATH = './meta_data/wrong-word.txt'
-    STOPWORDS_FILE_PATH = './meta_data/vietnamese-stopwords.txt'
-    EN_VI_FILE_PATH = './meta_data/english-vnmese.txt'
+    EMOJI_FILE_PATH = 'meta_data/emojicon.txt'
+    TEENCODE_FILE_PATH = 'meta_data/teencode.txt'
+    TYPO_WORD_FILE_PATH = 'meta_data/wrong-word.txt'
+    STOPWORDS_FILE_PATH = 'meta_data/vietnamese-stopwords.txt'
+    EN_VI_FILE_PATH = 'meta_data/english-vnmese.txt'
 
     def __init__(self):
         self.current_path = os.path.dirname(__file__)
