@@ -12,8 +12,19 @@ TTTH_Analyzer là gói thư viện hỗ trợ HV môn MDS5 thực hiện các b�
 
 FeatureProcessor là gói thư viện hỗ trợ HV môn MDS5 thực hiện các bước xử lý những vấn đề liên quan đến dữ liệu
 
-- Giải quyết tình trạng missing values cho biến phân loại và liên tục
-- Giải quyết tình trạng uncommon category cho biến phân loại 
+- Missing values trong biến phân loại và liên tục
+- Uncommon category trong biến phân loại 
+
+TextProcessor là gói thư viện hỗ trợ HV môn MDS5 thực hiện các bước xử lý 1 số vấn đề thường gặp ở văn bản Tiếng Việt
+- Emojicon
+- Teencode
+- Dấu câu và số xen lẫn trong câu 
+- Sai chính tả
+- Stop word Tiếng Việt
+- Tiếng Anh xen lẫn Tiếng Việt
+- Nhiều kỉểu gõ
+- Không tập trung vào từ loại quan trọng
+
 
 ## Tính năng cung cấp:
 
@@ -35,22 +46,33 @@ FeatureProcessor là gói thư viện hỗ trợ HV môn MDS5 thực hiện các
 - Phân tích outlier của biến liên tục
 - Phân tích hiện tượng mất cân bằng dữ liệu ở biến phân loại output 
 
-### Đối với thư viện TTTH_Analyzer
+### Đối với thư viện FeatureProcessor
 - Xử lý missing values và các phân nhóm không phổ biến:
   * Điền missing values bằng mode với biến phân loại
   * Điền mising values bằng median với biến liên tục 
   * Thay thế các phân nhóm không phổ biến bằng nhãn mới
 
+### Đối với thư viện TextProcessor
+- Xử lý các tình trạng thường gặp với dữ liệu văn bản Tiếng Việt:
+  * Thay thế 1 số emojicon bằng từ thay thế 
+  * Thay thế 1 số teen code bằng từ thay thế 
+  * Loại bỏ các ký tự số hoặc dấu câu 
+  * Loại bỏ 1 số từ bị sai chính tả 
+  * Loại bỏ các từ trong danh sách stopword Tiếng Việt 
+  * Chuyển đổi 1 số từ Tiếng Anh sang Tiếng Việt 
+  * Thực hiện biến đổi các kiểu gõ khác nhau về 1 dạng unicode 
+  * Hỗ trợ lọc từ loại theo yêu cầu thông qua tính năng postagging của thư viện underthesea
+
 ## Installation
 
 ```sh
-pip install ttth-mds5-analyzer
+pip install -U ttth-mds5-analyzer
 ```
 
 ## Cách sử dụng
 - Khởi tạo thư viện 
 ```sh
-from from analysis.analyzer import TTTH_Analyzer
+from analysis.analyzer import TTTH_Analyzer
 _analyzer = TTTH_Analyzer()
 ```
 - Phân tích đơn biến phân loại
@@ -160,6 +182,105 @@ label: nhãn thay thế các giá trị không phổ biến. Mặc định: Rare
 Kết quả: 
 ```
 ![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/ket_qua_handle_uncommon_category.png)
+
+## Cách sử dụng thư viện TextProcessor
+- Khởi tạo thư viện TextProcessor
+```sh
+from processor.text import TextProcessor
+text_processor = TextProcessor()
+```
+
+- Thay thế 1 số emojicon bằng từ thay thế
+```
+text_processor.replace_emoji_to_text(sentence, emoji_dict=None)
+
+Trong đó:
+sentence: Văn bản cần xử lý - kiểu  chuỗi (string)
+emoji_dict: dictionary bổ sung cho việc thay thế emojicon bằng từ thay thế, 
+nếu không truyền vào thì sử dụng từ dictionary mặc định   
+Kết quả: 
+```
+![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/emojicon.png)
+
+- Thay thế 1 số teen code bằng từ thay thế
+```
+text_processor.replace_teencode_to_text(sentence, teencode_dict=None)
+
+Trong đó:
+sentence: Văn bản cần xử lý - kiểu  chuỗi (string)
+teencode_dict: dictionary bổ sung cho việc thay thế teencode bằng từ thay thế, 
+nếu không truyền vào thì sử dụng từ dictionary mặc định 
+Kết quả: 
+```
+![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/teencode.png)
+
+- Loại bỏ các ký tự số hoặc dấu câu
+```
+text_processor.remove_punctuation_number(sentence)
+
+Trong đó:
+sentence: Văn bản cần xử lý - kiểu  chuỗi (string)
+Kết quả: 
+```
+![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/number_punctuation.png)
+
+- Loại bỏ 1 số từ bị sai chính tả
+```
+text_processor.remove_typo_tokens(sentence, typo_word_lst=None)
+
+Trong đó:
+sentence: Văn bản cần xử lý - kiểu  chuỗi (string)
+typo_word_lst: danh sách từ sai chính tả bổ sung cho việc loại bỏ từ sai chính tả, 
+nếu không truyền vào thì sử dụng từ danh sách mặc định 
+Kết quả: 
+```
+![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/typo_tokens.png)
+
+- Loại bỏ các từ trong danh sách stopword Tiếng Việt
+```
+text_processor.remove_stopword(sentence, stopwords=None)
+
+Trong đó:
+sentence: Văn bản cần xử lý - kiểu  chuỗi (string)
+stopwords: danh sách stopwords bổ sung cho việc loại bỏ stopwords, 
+nếu không truyền vào thì sử dụng từ danh sách mặc định 
+Kết quả: 
+```
+![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/stopwords.png)
+
+- Chuyển đổi 1 số từ Tiếng Anh sang Tiếng Việt
+```
+text_processor.translate_english_to_vietnam(sentence, eng_vie_dict=None)
+
+Trong đó:
+sentence: Văn bản cần xử lý - kiểu  chuỗi (string)
+eng_vie_dict: dictionary bổ sung cho việc thay thế Tiếng Anh bằng từ Tiếng Việt, 
+nếu không truyền vào thì sử dụng từ dictionary mặc định  
+Kết quả: 
+```
+![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/eng_vie_trans.png)
+
+- Thực hiện biến đổi các kiểu gõ khác nhau về 1 dạng unicode
+```
+text_processor.covert_unicode(sentence)
+
+Trong đó:
+sentence: Văn bản cần xử lý - kiểu  chuỗi (string)
+Kết quả: 
+```
+![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/stopwords.png)
+
+- Hỗ trợ lọc từ loại theo yêu cầu thông qua tính năng postagging của thư viện underthesea
+```
+text_processor.process_postag_thesea(sentence, lst_word_type=['N', 'A', 'V'])
+
+Trong đó:
+sentence: Văn bản cần xử lý - kiểu  chuỗi (string)
+lst_word_type: danh sách từ loại để lọc lấy, 
+nếu không truyền vào thì sử dụng từ danh sách mặc định 
+Kết quả: 
+```
+![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/postagging.png)
 
 ## License
 
