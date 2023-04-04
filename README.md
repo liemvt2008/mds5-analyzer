@@ -272,12 +272,12 @@ Kết quả:
 
 - Hỗ trợ lọc từ loại theo yêu cầu thông qua tính năng postagging của thư viện underthesea
 ```
-text_processor.process_postag_thesea(sentence, lst_word_type=['N', 'A', 'V'])
+text_processor.process_postag_thesea(sentence, lst_word_type=None)
 
 Trong đó:
 sentence: Văn bản cần xử lý - kiểu  chuỗi (string)
 lst_word_type: danh sách từ loại để lọc lấy, 
-nếu không truyền vào thì sử dụng từ danh sách mặc định 
+nếu không truyền vào thì sử dụng từ danh sách mặc định ['A', 'AB', 'V', 'VB', 'VY', 'R']
 Kết quả: 
 ```
 ![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/postagging.png)
