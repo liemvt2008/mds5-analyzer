@@ -268,7 +268,7 @@ Trong đó:
 sentence: Văn bản cần xử lý - kiểu  chuỗi (string)
 Kết quả: 
 ```
-![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/stopwords.png)
+![result](https://github.com/liemvt2008/mds5-analyzer/raw/master/assets/images/unicode.png)
 
 - Hỗ trợ lọc từ loại theo yêu cầu thông qua tính năng postagging của thư viện underthesea
 ```
