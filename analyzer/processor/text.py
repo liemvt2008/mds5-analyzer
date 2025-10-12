@@ -147,7 +147,7 @@ class TextProcessor:
             mapper[_char1252] = _charutf8
         return mapper
 
-    def covert_unicode(self, sentence):
+    def convert_unicode(self, sentence):
         """Convert text from others encoding to unicode
 
         :param sentence: string input
@@ -218,5 +218,5 @@ class TextProcessor:
             sentence = self.remove_punctuation_number(sentence)
             sentence = self.remove_typo_tokens(sentence, wrong_list)
             new_sentence = new_sentence + sentence + '. '
-        document = regex.sub(r'\s+', ' ', document).strip()
+        document = regex.sub(r'\s+', ' ', new_sentence).strip()
         return document
