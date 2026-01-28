@@ -18,8 +18,8 @@ class TTTH_Analyzer:
     def analyze_category_variable(self, variable_name, df):
         """
         This function support to analyze category variable by count values and show bar plot of variable count
-        parameter variable_name: name of categorical column
-        parameter df: DataFrame include categorical column
+        :parameter variable_name: name of categorical column
+        :parameter df: DataFrame include categorical column
         """
         class_count = self._count_values_of_variable(variable_name, df)
         print(f'Class count of {variable_name}:\n')
@@ -32,11 +32,12 @@ class TTTH_Analyzer:
         plt.title(f'Bar chart of {variable_name}')
         plt.show()
 
-    def show_central_tendency(self, variable_name, df):
+    @staticmethod
+    def show_central_tendency(variable_name, df):
         """
         Show central tendency of continuous variable
-        parameter: variable_name: name of continuous variable
-        parameter df: DataFrame include continuous column
+        :parameter variable_name: name of continuous variable
+        :parameter df: DataFrame include continuous column
         """
         _mean = df[variable_name].mean()
         _median = df[variable_name].median()
@@ -47,11 +48,12 @@ class TTTH_Analyzer:
         result = {'mean': _mean, 'median': _median, 'mode': _mode[0], 'min': _min, 'max': _max, 'range': _range}
         print(f'central tendency of {variable_name}: {result}')
 
-    def show_dispersion(self, variable_name, df):
+    @staticmethod
+    def show_dispersion(variable_name, df):
         """
         Show dispersion of continuous variable
-        parameter: variable_name: name of continuous variable
-        parameter df: DataFrame include continuous column
+        :parameter variable_name: name of continuous variable
+        :parameter df: DataFrame include continuous column
         """
         _min = df[variable_name].min()
         _max = df[variable_name].max()
@@ -65,11 +67,12 @@ class TTTH_Analyzer:
         result = {'range': _range, 'q1': q1, 'q3': q3, 'iqr': iqr, 'var': var, 'skew': skew, 'kurtosis': kurtosis}
         print(f'Dispersion of {variable_name}: \n {result}')
 
-    def visualize_hist_box_plot(self, variable_name, df):
+    @staticmethod
+    def visualize_hist_box_plot(variable_name, df):
         """
         Show histogram plot of continuous variable
-        parameter: variable_name: name of continuous variable
-        parameter df: DataFrame include continuous column
+        :parameter variable_name: name of continuous variable
+        :parameter df: DataFrame include continuous column
         """
         data = df[variable_name]
         plt.figure(figsize=(8, 6))
@@ -85,8 +88,8 @@ class TTTH_Analyzer:
         """
         This function support to analyze numerical variable by central tendency, dispersion
          and show hist plot of continuous variable
-        parameter: variable_name: name of continuous variable
-        parameter df: DataFrame include continuous column
+        :parameter variable_name: name of continuous variable
+        :parameter df: DataFrame include continuous column
         """
         print('=====')
         self.show_central_tendency(variable_name, df)
@@ -100,7 +103,7 @@ class TTTH_Analyzer:
         """
         Create unique pair of category variables
         Ex: [{A,B}, {A,C}, {B,C}]
-        parameter variables: list of category variable
+        :parameter variables: list of category variable
         return: list of unique pair of category variable
         """
         unique_pair = []
@@ -112,7 +115,8 @@ class TTTH_Analyzer:
                     unique_pair.append({col, _col})
         return unique_pair
 
-    def use_chi_2_evaluation(self, tw_table, prob=0.95):
+    @staticmethod
+    def use_chi_2_evaluation(tw_table, prob=0.95):
         """
         Use chi2 to check 2 category in two-way table Dependent or not
         parameter tw_table: two-way table of 2 category variable
@@ -125,75 +129,84 @@ class TTTH_Analyzer:
         else:
             return 'Fail to reject H0 - Independent'
 
-    def create_tw_table(self, var1, var2, df):
+    @staticmethod
+    def create_tw_table(var1, var2, df):
         """
         Create two-way table base on DataFrame and 2 category input
-        parameter var1: name of category 1
-        parameter var2: name of category 2
-        parameter df: DataFrame include 2 category variables input
+        :parameter var1: name of category 1
+        :parameter var2: name of category 2
+        :parameter df: DataFrame include 2 category variables input
         """
         tw_table = pd.crosstab(df[var1], df[var2])
         return tw_table
 
-    def analyze_category_vs_category(self, var1, var2, df, prob=0.95):
+    def analyze_category_vs_category(self, var1, var2, df, prob=0.95, should_visualize=True):
         """
         Create two-way table, show stacked bar and use chi2 to evaluate 2 category variable dependent or not
-        parameter var1: name of category 1
-        parameter var2: name of category 2
-        parameter df: DataFrame include 2 category variables input
+        :parameter var1: name of category 1
+        :parameter var2: name of category 2
+        :parameter df: DataFrame include 2 category variables input
+        :parameter prob: Confident interval
+        :parameter should_visualize: whether show chart or not - default is True
         """
         tw_table = self.create_tw_table(var1, var2, df)
-        print(f'=====Analyze of {var1} and {var2}=====')
-        tw_table.plot(kind='bar', stacked=True, legend=False)
         chi2_result = self.use_chi_2_evaluation(tw_table, prob)
-        plt.title(chi2_result)
-        plt.show()
+        print(f'=====Analyze of {var1} and {var2}=====')
+        if should_visualize:
+            tw_table.plot(kind='bar', stacked=True, legend=False)
+            plt.title(chi2_result)
+            plt.show()
         return {'var1': var1, 'var2': var2, 'result': chi2_result}
 
-    def visualize_box_for_continous_vs_categories(self, continous_var, category_vars, df):
+    @staticmethod
+    def visualize_box_for_continuous_vs_categories(continuous_var, category_vars, df):
         """
         Visualize boxplot for continuous and 1 or 2 category variables
-        parameter continous_var: continuous variable
-        parameter category_vars: str for 1 variable or list for 2 category variables
-        parameter df: DataFrame contains continuous and category variables input
+        :parameter continuous_var: continuous variable
+        :parameter category_vars: str for 1 variable or list for 2 category variables
+        :parameter df: DataFrame contains continuous and category variables input
         """
         if isinstance(category_vars, str):
-            sns.boxplot(x=category_vars, y=continous_var, data=df)
+            sns.boxplot(x=category_vars, y=continuous_var, data=df)
         elif isinstance(category_vars, list) and (len(category_vars) == 2):
-            sns.boxplot(x=category_vars[0], y=continous_var, hue=category_vars[1], data=df)
+            sns.boxplot(x=category_vars[0], y=continuous_var, hue=category_vars[1], data=df)
         else:
             raise ValueError('Only support for 2 categories variable analysis')
         plt.legend([], [], frameon=False)
         plt.xticks(rotation=90)
         plt.show()
 
-    def analyze_anova_table_for_continous_vs_categories(self, continous_var, category_vars, df):
+    @staticmethod
+    def analyze_anova_table_for_continuous_vs_categories(continuous_var, category_vars, df):
         """
         Use ANOVA table to analyze continuous vs 1 or 2 category variables
-        parameter continous_var: continuous variable
-        parameter category_vars: str for 1 variable or list for 2 category variables
-        parameter df: DataFrame contains continuous and category variables input
+        :parameter continuous_var: continuous variable
+        :parameter category_vars: str for 1 variable or list for 2 category variables
+        :parameter df: DataFrame contains continuous and category variables input
         """
         if isinstance(category_vars, str):
-            function = f'{continous_var} ~ C({category_vars})'
+            function = f'{continuous_var} ~ C({category_vars})'
         elif isinstance(category_vars, list) and (len(category_vars) == 2):
-            function = f'{continous_var} ~C({category_vars[0]}) + C({category_vars[1]}) + C({category_vars[0]}):C({category_vars[1]})'
+            function = f'{continuous_var} ~C({category_vars[0]}) + C({category_vars[1]}) \
+            + C({category_vars[0]}):C({category_vars[1]})'
         else:
             raise ValueError('Only support for 2 categories variable analysis')
         model = ols(function, data=df).fit()
         anova_table = sm.stats.anova_lm(model, typ=2)
         print(anova_table)
 
-    def analyze_continous_vs_categories(self, continous_var, category_vars, df):
+    def analyze_continuous_vs_categories(self, continuous_var, category_vars, df, should_visualize=True):
         """
-        Analyze continous variables with 1 or 2 category variables
-        parameter continous_var: continuous variable
-        parameter category_vars: str for 1 variable or list for 2 category variables
-        parameter df: DataFrame contains continuous and category variables input
+        Analyze continuous variables with 1 or 2 category variables
+        :parameter continuous_var: continuous variable
+        :parameter category_vars: str for 1 variable or list for 2 category variables
+        :parameter df: DataFrame contains continuous and category variables input
+        :parameter should_visualize: whether to show chart or not - default is True
         """
-        self.analyze_anova_table_for_continous_vs_categories(continous_var, category_vars, df)
-        print('======')
-        self.visualize_box_for_continous_vs_categories(continous_var, category_vars, df)
+        self.analyze_anova_table_for_continuous_vs_categories(continuous_var, category_vars, df)
+        if should_visualize:
+            print('======')
+            self.visualize_box_for_continuous_vs_categories(continuous_var, category_vars, df)
 
     @staticmethod
     def _count_values_of_variable(variable_name, df, normalize=False):
@@ -227,7 +240,8 @@ class TTTH_Analyzer:
         if ratio_of_classes >= 2:
             print(f'You should consider to handle imbalance')
 
-    def check_outlier_of_numerical_variable(self, numerical_variable, df):
+    @staticmethod
+    def check_outlier_of_numerical_variable(numerical_variable, df):
         """
         Function check outlier of variable and return index of outlier if any
         :param numerical_variable: Name of Numerical variable
@@ -246,7 +260,7 @@ class TTTH_Analyzer:
         lower_outlier_ratio = index_low.shape[0] / total_sample
         if index_up.empty and index_low.empty:
             print(f'Variable {numerical_variable} have no outlier')
-            return
+            return None
         else:
             print(f'variable {numerical_variable} have {round(upper_outlier_ratio * 100, 3)}% upper outlier')
             print(f'variable {numerical_variable} have {round(lower_outlier_ratio * 100, 3)}% lower outlier')
