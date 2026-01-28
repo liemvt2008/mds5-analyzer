@@ -152,6 +152,7 @@ class TTTH_Analyzer:
         tw_table = self.create_tw_table(var1, var2, df)
         chi2_result = self.use_chi_2_evaluation(tw_table, prob)
         print(f'=====Analyze of {var1} and {var2}=====')
+        print(chi2_result)
         if should_visualize:
             tw_table.plot(kind='bar', stacked=True, legend=False)
             plt.title(chi2_result)

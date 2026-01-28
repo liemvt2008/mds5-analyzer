@@ -2,8 +2,8 @@ from setuptools import setup, find_packages
 
 
 setup(
-    name='ttth-mds5-analyzer',
-    version='0.1.9',
+    name='ttth_mds5_analyzer',
+    version='0.1.11',
     license='MIT',
     author="Data Farmer",
     author_email='datafarmer2019@gmail.com',
